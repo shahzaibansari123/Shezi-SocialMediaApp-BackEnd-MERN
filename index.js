@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 const CONNECTION_URL =
-  "mongodb://socialmediaapp:socialmediaappdb@cluster0-shard-00-00.t5qza.mongodb.net:27017,cluster0-shard-00-01.t5qza.mongodb.net:27017,cluster0-shard-00-02.t5qza.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-5pdjfb-shard-0&authSource=admin&retryWrites=true&w=majority";
+  "mongodb://@cluster0-shard-00-00.t5qza.mongodb.net:27017,cluster0-shard-00-01.t5qza.mongodb.net:27017,cluster0-shard-00-02.t5qza.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-5pdjfb-shard-0&authSource=admin&retryWrites=true&w=majority";
 const PORT = process.env.port || 5000;
 
 mongoose
