@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 
-
+//wannts like apost 
+//click like btn  > auth middleware(next)> lke controller/
 const auth = async (req, res, next)=>{
     try {
         const token = req.headers.authorization.split(' ')[1];
@@ -15,6 +16,7 @@ const auth = async (req, res, next)=>{
             decodedData= jwt.decode(token)
             req.userId=decodedData?.sub;
         }
+        next()
 
 
     } catch (error) {
@@ -22,3 +24,5 @@ const auth = async (req, res, next)=>{
         
     }
 }
+
+export default auth
