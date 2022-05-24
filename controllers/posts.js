@@ -13,15 +13,21 @@ export const getPosts = async (req, res) => {
   }
 };
 
+// req.query--- ssdd/abcbd?djd=1
+// params---fsff/ddfd/:id etc
+
 
 export const getPostsBySearch = async (req, res) => {
+  const {searchQuery, tags}= req.query
   try {
-   
+    //using regExp makes easy to search in daatabase
+    const title = new RegExp(searchQuery, 'i')
+    const posts = await PostMessage.find( { $or : [ { title } , { tags: { $in: tags.split(',') } } ] } );
 
- 
+ res.json({data: posts})
 
   } catch (error) {
-  
+  res.status(404).json({message: error.message})
   }
 };
 
