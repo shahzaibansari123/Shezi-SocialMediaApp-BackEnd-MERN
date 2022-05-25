@@ -2,7 +2,11 @@ import mongoose from "mongoose";
 import PostMessage from "../models/postMessage.js";
 
 export const getPosts = async (req, res) => {
+  //basically getPostbypage he cz ub pages k hisab se aengy post tw neche pagination ka logic he
+  const {page}= req.query
   try {
+    const LIMIT=8
+    startIndex=(Number(page) - 1) * LIMIT  //getting the start index of ervery page
     const postMessages = await PostMessage.find();
 
     // console.log(postMessages)
