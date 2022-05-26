@@ -5,7 +5,7 @@ export const getPosts = async (req, res) => {
   //basically getPostbypage he cz ub pages k hisab se aengy post tw neche pagination ka logic he
   const {page}= req.query
   try {
-    const LIMIT=8
+    const LIMIT=4
     const startIndex=(Number(page) - 1) * LIMIT  //getting the start index of ervery page
     const total= await PostMessage.countDocuments({})
     const posts = await PostMessage.find().sort({_id: -1}).limit(LIMIT).skip(startIndex);
