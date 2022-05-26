@@ -7,11 +7,12 @@ export const getPosts = async (req, res) => {
   try {
     const LIMIT=8
     startIndex=(Number(page) - 1) * LIMIT  //getting the start index of ervery page
-    const postMessages = await PostMessage.find();
+    const total= await postMessage.countDocuments({})
+    const posts = await PostMessage.find().sort({_id: -1}).limit(LIMIT).skip(startIndex);
 
     // console.log(postMessages)
 
-    res.status(200).json(postMessages);
+    res.status(200).json({data: posts, currentPage: Number(page), numberOfPage: Math.ceil(total / LIMIT)});
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
