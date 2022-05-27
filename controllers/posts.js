@@ -1,11 +1,24 @@
-import mongoose from "mongoose";
+ import mongoose from "mongoose";
 import PostMessage from "../models/postMessage.js";
+
+
+export const getPost = async (req, res) => {
+  const {id}= req.params
+  try {
+    const post= await PostMessage.findById(id)
+    res.status(200).json(post);
+
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 
 export const getPosts = async (req, res) => {
   //basically getPostbypage he cz ub pages k hisab se aengy post tw neche pagination ka logic he
   const {page}= req.query
   try {
-    const LIMIT=2
+    const LIMIT=4
     const startIndex=(Number(page) - 1) * LIMIT  //getting the start index of ervery page
     const total= await PostMessage.countDocuments({})
     const posts = await PostMessage.find().sort({_id: -1}).limit(LIMIT).skip(startIndex);
