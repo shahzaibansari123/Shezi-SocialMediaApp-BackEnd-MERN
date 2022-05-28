@@ -2,16 +2,6 @@
 import PostMessage from "../models/postMessage.js";
 
 
-export const getPost = async (req, res) => {
-  const {id}= req.params
-  try {
-    const post= await PostMessage.findById(id)
-    res.status(200).json(post);
-
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
 
 
 export const getPosts = async (req, res) => {
@@ -41,13 +31,25 @@ export const getPostsBySearch = async (req, res) => {
     //using regExp makes easy to search in daatabase
     const title = new RegExp(searchQuery, 'i')
     const posts = await PostMessage.find( { $or : [ { title } , { tags: { $in: tags.split(',') } } ] } );
-
- res.json({data: posts})
-
+    
+    res.json({data: posts})
+    
   } catch (error) {
   res.status(404).json({message: error.message})
   }
 };
+
+export const getPost = async (req, res) => {
+  const {id}= req.params
+  try {
+    const post= await PostMessage.findById(id)
+    res.status(200).json(post);
+
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 
 export const createPost = async (req, res) => {
   const post = req.body;
