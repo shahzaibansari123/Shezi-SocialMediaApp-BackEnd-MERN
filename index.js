@@ -2,13 +2,15 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
-import dotenv from 'dotenv'
+// import dotenv from 'dotenv'
 
 import postRoutes from './routes/posts.js'
 import userRoutes from './routes/users.js'
 
 const app = express();
-dotenv.config();
+const CONNECTION_URL = "mongodb://admin:admin@cluster0-shard-00-00.t5qza.mongodb.net:27017,cluster0-shard-00-01.t5qza.mongodb.net:27017,cluster0-shard-00-02.t5qza.mongodb.net:27017/SocialMediaApp?ssl=true&replicaSet=atlas-5pdjfb-shard-0&authSource=admin&retryWrites=true&w=majority"
+const PORT = process.env.port || 5001;
+// dotenv.config();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -23,8 +25,6 @@ res.send("App Is Running")
 })
 
 
-const CONNECTION_URL = "mongodb://admin:admin@cluster0-shard-00-00.t5qza.mongodb.net:27017,cluster0-shard-00-01.t5qza.mongodb.net:27017,cluster0-shard-00-02.t5qza.mongodb.net:27017/SocialMediaApp?ssl=true&replicaSet=atlas-5pdjfb-shard-0&authSource=admin&retryWrites=true&w=majority"
-const PORT = process.env.port || 5001;
 
 mongoose
   .connect(CONNECTION_URL, {
